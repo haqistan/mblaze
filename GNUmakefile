@@ -4,6 +4,7 @@ LDFLAGS?=-fstack-protector-strong
 LDLIBS=-lrt
 
 OS := $(shell uname)
+REAL_OS := $(shell uname -o)
 
 ifeq ($(OS),OpenBSD)
 LOCALBASE=/usr/local
@@ -12,6 +13,10 @@ LDLIBS=-L$(LOCALBASE)/lib -liconv -pthread
 endif
 
 ifeq ($(OS),Darwin)
+LDLIBS=-liconv
+endif
+
+ifeq ($(REAL_OS),Android)
 LDLIBS=-liconv
 endif
 
